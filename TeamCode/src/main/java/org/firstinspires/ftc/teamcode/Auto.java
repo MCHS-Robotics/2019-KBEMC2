@@ -15,10 +15,10 @@ public class Auto extends LinearOpMode {
     public void runOpMode() {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap);
 
-        Camera camera = new Camera();
-        Collection collection = new Collection();
+        Camera camera = new Camera(utilities);
+        Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
-        Lift lift = new Lift();
+        Lift lift = new Lift(utilities);
 
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer();
 
