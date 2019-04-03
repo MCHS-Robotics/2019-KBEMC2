@@ -3,19 +3,22 @@ package org.firstinspires.ftc.teamcode.hal;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Util;
+
+import org.firstinspires.ftc.teamcode.Utilities;
 
 public class Drive {
     private DcMotor left;
     private DcMotor right;
-    private LinearOpMode opMode;
+    private Utilities utilities;
 
     private static final int ENCODERS_IN_ONE_ROTATION = 1120;
     private static final float WHEEL_RADIUS = 4;
 
-    public Drive(HardwareMap hardwareMap, LinearOpMode opMode) {
-        this.left = hardwareMap.get(DcMotor.class, "left");
-        this.right = hardwareMap.get(DcMotor.class, "right");
-        this.opMode = opMode;
+    public Drive(Utilities utilities) {
+        this.left = utilities.getHardwareMap().get(DcMotor.class, "left");
+        this.right = utilities.getHardwareMap().get(DcMotor.class, "right");
+        this.utilities = utilities;
         setZeroPowerBehavior();
     }
 
@@ -23,7 +26,7 @@ public class Drive {
         resetEncoders();
         setToPosition();
 
-        while (opMode.opModeIsActive()) {
+        while (utilities.getOpMode().opModeIsActive()) {
 
         }
 
