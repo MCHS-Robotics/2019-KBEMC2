@@ -28,6 +28,9 @@ public class Auto extends LinearOpMode {
         waitForStart();
         elapsedTime.reset();
 
+        telemetry.addData("Message", "Code has begun executing!");
+        telemetry.update();
+
         drive.forward(80);
         drive.turnLeft(90);
         drive.forward(82);
