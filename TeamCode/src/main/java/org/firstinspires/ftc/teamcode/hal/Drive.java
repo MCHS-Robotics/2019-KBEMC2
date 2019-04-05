@@ -10,7 +10,8 @@ public class Drive {
     private Utilities utilities;
 
     private static final int ENCODERS_IN_ONE_ROTATION = 1120;
-    private static final float WHEEL_RADIUS = 4;
+    private static final float WHEEL_RADIUS = 2;
+    private static final float TURN_RADIUS = 10;
 
     public Drive(Utilities utilities) {
         this.left = utilities.getHardwareMap().get(DcMotor.class, "left");
@@ -22,11 +23,17 @@ public class Drive {
     public void forward(float inches) {
         resetEncoders();
         setToPosition();
-
-        while (utilities.getOpMode().opModeIsActive()) {
-
+        left.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
+        right.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
+        left.setPower(0.6);
+        right.setPower(0.6);
+        while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
+            utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
+            utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
+            utilities.getTelemetry().update();
         }
-
+        left.setPower(0);
+        right.setPower(0);
         resetEncoders();
     }
 
@@ -35,7 +42,20 @@ public class Drive {
     }
 
     public void turnRight(float degrees) {
-
+        resetEncoders();
+        setToPosition();
+        left.setTargetPosition((int) Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
+        right.setTargetPosition((int) -Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
+        left.setPower(0.6);
+        right.setPower(0.6);
+        while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
+            utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
+            utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
+            utilities.getTelemetry().update();
+        }
+        left.setPower(0);
+        right.setPower(0);
+        resetEncoders();
     }
 
     public void turnLeft(float degrees) {
