@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hal.Camera;
 import org.firstinspires.ftc.teamcode.hal.Collection;
@@ -11,9 +12,11 @@ import org.firstinspires.ftc.teamcode.hal.Lift;
 @Autonomous(name="Auto", group="KBEMC2")
 public class Auto extends LinearOpMode {
 
+    private ElapsedTime elapsedTime = new ElapsedTime();
+
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
 
         Camera camera = new Camera(utilities);
         Collection collection = new Collection(utilities);
@@ -23,6 +26,7 @@ public class Auto extends LinearOpMode {
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer();
 
         waitForStart();
+        elapsedTime.reset();
 
         drive.forward(80);
         drive.turnLeft(90);
@@ -45,6 +49,5 @@ public class Auto extends LinearOpMode {
         lift.up();
         collection.release();
         lift.down();
-
     }
 }
