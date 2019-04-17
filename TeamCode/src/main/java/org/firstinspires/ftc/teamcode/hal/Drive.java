@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hal;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Utilities;
 
@@ -18,6 +19,7 @@ public class Drive {
         this.right = utilities.getHardwareMap().get(DcMotor.class, "right");
         this.utilities = utilities;
         setZeroPowerBehavior();
+        left.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void forward(float inches) {
@@ -25,8 +27,8 @@ public class Drive {
         setToPosition();
         left.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
         right.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
-        left.setPower(0.6);
-        right.setPower(0.6);
+        left.setPower(0.3);
+        right.setPower(0.3);
         while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
             utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
             utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
@@ -46,8 +48,8 @@ public class Drive {
         setToPosition();
         left.setTargetPosition((int) Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
         right.setTargetPosition((int) -Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
-        left.setPower(0.6);
-        right.setPower(0.6);
+        left.setPower(0.3);
+        right.setPower(0.3);
         while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
             utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
             utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
