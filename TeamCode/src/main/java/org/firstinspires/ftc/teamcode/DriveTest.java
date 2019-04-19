@@ -15,8 +15,10 @@ public class DriveTest extends LinearOpMode {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
         Drive drive = new Drive(utilities);
 
+
         waitForStart();
         elapsedTime.reset();
+
 
         for (int i = 0; i < 4; i++) {
             drive.forward(10);

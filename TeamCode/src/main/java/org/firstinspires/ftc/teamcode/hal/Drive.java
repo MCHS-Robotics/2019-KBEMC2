@@ -43,16 +43,19 @@ public class Drive {
         forward(-inches);
     }
 
+
     public void turnRight(float degrees) {
         resetEncoders();
         setToPosition();
-        left.setTargetPosition((int) Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
-        right.setTargetPosition((int) -Math.round(degrees * TURN_RADIUS * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
+        left.setTargetPosition((int) Math.round(degrees * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS) * 2 / 15);
+        right.setTargetPosition(-left.getTargetPosition());
         left.setPower(0.3);
         right.setPower(0.3);
         while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
             utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
             utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
+            utilities.getTelemetry().addData("TargetL", left.getTargetPosition());
+            utilities.getTelemetry().addData("TargetR", right.getTargetPosition());
             utilities.getTelemetry().update();
         }
         left.setPower(0);
@@ -72,7 +75,7 @@ public class Drive {
     private void setToPosition() {
         left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }intermediates/external_libs_de
+    }
 
     private void resetEncoders() {
         left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
