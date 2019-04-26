@@ -22,13 +22,13 @@ public class Drive {
         left.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    public void forward(float inches) {
+    public void forward(float inches, double speed) {
         resetEncoders();
         setToPosition();
         left.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
         right.setTargetPosition((int) Math.round(inches * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS));
-        left.setPower(0.3);
-        right.setPower(0.3);
+        left.setPower(speed);
+        right.setPower(speed);
         while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
             utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
             utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
@@ -39,8 +39,8 @@ public class Drive {
         resetEncoders();
     }
 
-    public void backward(float inches) {
-        forward(-inches);
+    public void backward(float inches, double speed) {
+        forward(-inches,speed);
     }
 
 

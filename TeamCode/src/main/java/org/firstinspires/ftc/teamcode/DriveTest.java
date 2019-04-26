@@ -21,8 +21,9 @@ public class DriveTest extends LinearOpMode {
 
 
         for (int i = 0; i < 4; i++) {
-            drive.forward(10);
+            drive.forward(10,0.5);
             drive.turnRight(90);
+
         }
     }
 }

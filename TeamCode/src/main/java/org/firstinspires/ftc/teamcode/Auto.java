@@ -19,9 +19,9 @@ public class Auto extends LinearOpMode {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
 
         Camera camera = new Camera(utilities);
-        Collection collection = new Collection(utilities);
+        //Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
-        Lift lift = new Lift(utilities);
+        //Lift lift = new Lift(utilities);
 
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer();
 
@@ -31,13 +31,15 @@ public class Auto extends LinearOpMode {
         telemetry.addData("Message", "Code has begun executing!");
         telemetry.update();
 
-        drive.forward(80);
+        drive.forward(77,0.5);
         drive.turnLeft(90);
-        drive.forward(82);
-        drive.turnRight(90);
-        drive.forward(50);
+        drive.forward(50,0.5);
+        drive.forward(5,0.0);
+        drive.backward(5,0.0);
+        //drive.turnRight(90);
+        //drive.forward(50,0.5);
 
-        if (beaconDeterminer.determine() == BeaconDeterminer.BeaconState.LEFT) {
+        /*if (beaconDeterminer.determine() == BeaconDeterminer.BeaconState.LEFT) {
             drive.turnLeft(90);
             drive.forward(22);
             drive.turnRight(90);
@@ -50,7 +52,8 @@ public class Auto extends LinearOpMode {
         }
 
         lift.up();
-        collection.release();
+        collection.release(); commented bc no motor yet
         lift.down();
+        */
     }
 }
