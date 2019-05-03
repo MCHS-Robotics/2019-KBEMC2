@@ -22,14 +22,14 @@ public class Lift {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        lift.setTargetPosition((int) (1707 * LEAD_SCREW_TRAVEL_LENGTH));
+        lift.setTargetPosition((int) (1778 * LEAD_SCREW_TRAVEL_LENGTH));
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void down() {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lift.setTargetPosition((int) (-1707 * LEAD_SCREW_TRAVEL_LENGTH));
+        lift.setTargetPosition((int) (-1778 * LEAD_SCREW_TRAVEL_LENGTH));
 
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }

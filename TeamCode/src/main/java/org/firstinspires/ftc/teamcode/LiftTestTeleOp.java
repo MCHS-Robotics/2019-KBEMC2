@@ -72,6 +72,8 @@ public class LiftTestTeleOp extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         //leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         lift = hardwareMap.get(DcMotor.class, "lift");
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -99,7 +101,7 @@ public class LiftTestTeleOp extends LinearOpMode {
             //liftPower    = Range.clip(power, -1.0, 1.0) ;
             //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
             lift.setPower(gamepad1.left_stick_y);
-            telemetry.addData("lift position", lift.getCurrentPosition());
+            telemetry.addData("inches", (double)lift.getCurrentPosition()/1778.0);
 
             //else if(gamepad1.b)
             //{

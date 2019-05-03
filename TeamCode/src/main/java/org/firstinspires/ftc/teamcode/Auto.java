@@ -34,8 +34,8 @@ public class Auto extends LinearOpMode {
         drive.forward(77,0.5);
         drive.turnLeft(90);
         drive.forward(50,0.5);
-        drive.forward(5,0.0);
-        drive.backward(5,0.0);
+        drive.forward(5,0.3);
+        drive.backward(5,0.3);
         //drive.turnRight(90);
         //drive.forward(50,0.5);
 
