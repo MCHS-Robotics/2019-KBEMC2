@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hal.Camera;
 import org.firstinspires.ftc.teamcode.hal.Collection;
+import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
 import org.firstinspires.ftc.teamcode.hal.Lift;
 
@@ -18,10 +19,11 @@ public class Auto extends LinearOpMode {
     public void runOpMode() {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
 
-        Camera camera = new Camera(utilities);
-        //Collection collection = new Collection(utilities);
+
+        ComputerVision computerVision = new ComputerVision(utilities);
+        Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
-        //Lift lift = new Lift(utilities);
+        Lift lift = new Lift(utilities);
 
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer();
 
@@ -36,8 +38,8 @@ public class Auto extends LinearOpMode {
         drive.forward(50,0.5);
         drive.forward(5,0.3);
         drive.backward(5,0.3);
-        //drive.turnRight(90);
-        //drive.forward(50,0.5);
+        drive.turnRight(90);
+        drive.forward(50,0.5);
 
         /*if (beaconDeterminer.determine() == BeaconDeterminer.BeaconState.LEFT) {
             drive.turnLeft(90);
