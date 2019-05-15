@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.hal.Camera;
 import org.firstinspires.ftc.teamcode.hal.Collection;
 import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
@@ -25,7 +24,7 @@ public class Auto extends LinearOpMode {
         Drive drive = new Drive(utilities);
         Lift lift = new Lift(utilities);
 
-        BeaconDeterminer beaconDeterminer = new BeaconDeterminer();
+        BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
 
         waitForStart();
         elapsedTime.reset();

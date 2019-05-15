@@ -11,12 +11,14 @@ public class Utilities {
     private Telemetry telemetry;
     private HardwareMap hardwareMap;
     private ElapsedTime elapsedTime;
+    private Side side;
 
     public Utilities(LinearOpMode opMode, Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime elapsedTime) {
         this.opMode = opMode;
         this.telemetry = telemetry;
         this.hardwareMap = hardwareMap;
         this.elapsedTime = elapsedTime;
+        this.side = Side.RED;
     }
 
     public LinearOpMode getOpMode() {
@@ -33,5 +35,11 @@ public class Utilities {
 
     public ElapsedTime getElapsedTime() {
         return elapsedTime;
+    }
+
+    public Side getSide() { return side; }
+
+    public enum Side {
+        RED, BLUE
     }
 }

@@ -1,37 +1,30 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hal.Collection;
 import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
+import org.firstinspires.ftc.teamcode.hal.Lift;
 
-@TeleOp(name="Test Computer Vision", group="test")
-public class TestComputerVision extends LinearOpMode {
+public class TeleOp extends LinearOpMode {
 
     private ElapsedTime elapsedTime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
+
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
 
-
         ComputerVision computerVision = new ComputerVision(utilities);
-        Collection collection = null;
+        Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
-        // Lift lift = new Lift(utilities);
+        Lift lift = new Lift(utilities);
+
+        BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
 
         waitForStart();
         elapsedTime.reset();
-
-        BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
-
-        for (int i = 0; i < 3; i++) {
-            drive.forward(5, 0.3f);
-            bc.collect();
-            drive.reverse();
-        }
     }
 }

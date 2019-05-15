@@ -39,12 +39,31 @@ public class ComputerVision {
         for (Recognition r : recognitions) {
             if (closest == null) { closest = r; }
 
-            if (Math.abs(r.estimateAngleToObject(AngleUnit.DEGREES)) < Math.abs(closest.estimateAngleToObject(AngleUnit.DEGREES))) {
+            if (r.getBottom() < closest.getBottom()) {
                 closest = r;
             }
         }
 
         return (float) closest.estimateAngleToObject(AngleUnit.DEGREES);
+    }
+
+    public float getBottomYFraction() {
+        if (first) { first = false; tfod.activate(); }
+
+        List<Recognition> recognitions = tfod.getRecognitions();
+
+        if (recognitions == null || recognitions.isEmpty()) { return Float.NaN; }
+
+        Recognition closest = null;
+        for (Recognition r : recognitions) {
+            if (closest == null) { closest = r; }
+
+            if (r.getBottom() < closest.getBottom()) {
+                closest = r;
+            }
+        }
+
+        return closest.getBottom() / closest.getImageHeight();
     }
 
     private void initVuforia(HardwareMap hardwareMap) {
@@ -60,6 +79,7 @@ public class ComputerVision {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minimumConfidence = 0.6f;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }

@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.hal.Collection;
 import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
 
-@TeleOp(name="Test Computer Vision", group="test")
-public class TestComputerVision extends LinearOpMode {
+@TeleOp(name="Test Reverse", group="test")
+public class TestReverse extends LinearOpMode {
 
     private ElapsedTime elapsedTime = new ElapsedTime();
 
@@ -26,12 +26,9 @@ public class TestComputerVision extends LinearOpMode {
         waitForStart();
         elapsedTime.reset();
 
-        BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
-
-        for (int i = 0; i < 3; i++) {
-            drive.forward(5, 0.3f);
-            bc.collect();
-            drive.reverse();
-        }
+        drive.forward(15, 0.5f);
+        drive.turnRight(90);
+        drive.forward(12, 0.5f);
+        drive.reverse();
     }
 }
