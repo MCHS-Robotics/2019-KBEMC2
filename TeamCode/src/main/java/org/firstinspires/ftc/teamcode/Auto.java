@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.hal.Collection;
@@ -20,10 +21,11 @@ public class Auto extends LinearOpMode {
 
 
         ComputerVision computerVision = new ComputerVision(utilities);
-        Collection collection = new Collection(utilities);
+        //Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
         Lift lift = new Lift(utilities);
 
+        ColorSensor color = utilities.getHardwareMap().get(ColorSensor.class, "color");
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
 
         waitForStart();
