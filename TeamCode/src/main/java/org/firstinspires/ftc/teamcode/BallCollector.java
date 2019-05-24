@@ -18,9 +18,9 @@ public class BallCollector {
         this.collection = collection;
     }
 
-    public void collect() {
+    public boolean collect() {
         float angle = computerVision.getHorizontalAngle();
-        while (Float.isNaN(angle) && utilities.getOpMode().opModeIsActive()) {
+        for (int i = 0; i < 10000 && Float.isNaN(angle) && utilities.getOpMode().opModeIsActive(); i++) {
             utilities.getTelemetry().addData("Theta", angle);
             utilities.getTelemetry().update();
             angle = computerVision.getHorizontalAngle();
@@ -28,6 +28,10 @@ public class BallCollector {
 
         utilities.getTelemetry().addData("Theta", angle);
         utilities.getTelemetry().update();
+
+        if (Float.isNaN(angle) || true) {
+            return false;
+        }
 
         drive.turnRight(angle);
 
@@ -43,5 +47,6 @@ public class BallCollector {
 
         // collection.collect();
         drive.forward(10f, 0.3f);
+        return utilities.getOpMode().opModeIsActive();
     }
 }

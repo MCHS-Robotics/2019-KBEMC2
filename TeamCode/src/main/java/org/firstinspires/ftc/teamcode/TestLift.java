@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 import org.firstinspires.ftc.teamcode.hal.Lift;
-@TeleOp(name="Lift Test", group="KBEMC2")
+@TeleOp(name="Test Lift", group="test")
 //@Disabled
-public class LiftTestTeleOp extends LinearOpMode {
+public class TestLift extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

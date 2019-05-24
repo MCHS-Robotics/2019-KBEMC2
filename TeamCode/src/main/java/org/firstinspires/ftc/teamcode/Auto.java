@@ -24,8 +24,6 @@ public class Auto extends LinearOpMode {
         //Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
         Lift lift = new Lift(utilities);
-
-        ColorSensor color = utilities.getHardwareMap().get(ColorSensor.class, "color");
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
 
         waitForStart();

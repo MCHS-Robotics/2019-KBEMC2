@@ -28,10 +28,10 @@ public class TestComputerVision extends LinearOpMode {
 
         BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
 
-        for (int i = 0; i < 3; i++) {
-            drive.forward(5, 0.3f);
+        while (opModeIsActive()) {
+             drive.forward(5, 0.3f);
             bc.collect();
-            drive.reverse();
+             drive.reverse();
         }
     }
 }
