@@ -32,33 +32,31 @@ public class Tele extends LinearOpMode {
 
         boolean left = false;
 
-        while (opModeIsActive()) {
+        for (int i = 0; i < 1 && opModeIsActive(); i++) {
             // path
             drive.turnRight(180);
             if (left) {
-                drive.turnRight(40);
+                drive.turnRight(45);
             } else {
-                drive.turnLeft(40);
+                drive.turnLeft(45);
             }
-            drive.forward(35, 0.5f);
+            drive.forward(36, 0.6f);
             if (left) {
-                drive.turnLeft(40);
+                drive.turnLeft(45);
             } else {
-                drive.turnRight(40);
+                drive.turnRight(45);
             }
+            drive.backward(6, 0.6f);
             drive.turnRight(45);
 
-            for (int i = 0; i < 4 && opModeIsActive(); i++) {
+            for (int ii = 0; ii < 4 && opModeIsActive(); ii++) {
                 if (bc.collect()) {
                     break;
                 }
-                drive.forward(23, 0.5f);
-                if (bc.collect()) {
-                    break;
+                drive.forward(58 + (ii >= 2 ? 8 : 0), 0.6f);
+                if (ii < 3) {
+                    drive.turnLeft(90);
                 }
-                drive.forward(28, 0.5f);
-                drive.turnLeft(90);
-
             }
 
             drive.reverse();

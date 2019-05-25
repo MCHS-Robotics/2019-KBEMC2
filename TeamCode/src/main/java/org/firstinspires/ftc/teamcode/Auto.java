@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
 import org.firstinspires.ftc.teamcode.hal.Lift;
 
-@Autonomous(name="Auto", group="KBEMC2")
+@Autonomous(name="KBEMC2 Auto", group="KBEMC2")
 public class Auto extends LinearOpMode {
 
     private ElapsedTime elapsedTime = new ElapsedTime();

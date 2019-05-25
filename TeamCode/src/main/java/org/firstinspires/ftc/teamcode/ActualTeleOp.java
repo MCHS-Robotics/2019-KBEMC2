@@ -50,7 +50,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Actual TeleOp", group="test")
+@TeleOp(name="Actual TeleOp", group="KEBMC2 TeleOp")
 public class ActualTeleOp extends LinearOpMode {
 
     // Declare OpMode members.
@@ -91,7 +91,7 @@ public class ActualTeleOp extends LinearOpMode {
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
             double drive = (gamepad1.left_stick_y >= 0 ? 1 : -1) * (Math.abs(gamepad1.left_stick_y) < 0.5 ? Math.abs(gamepad1.left_stick_y) / 2 : (1.5 * Math.abs(gamepad1.left_stick_y) - 0.5));
-            double turn  =  (gamepad1.right_stick_x >= 0 ? 1 : -1) * (Math.abs(gamepad1.right_stick_x) < 0.5 ? Math.abs(gamepad1.right_stick_x) / 2 : (1.5 * Math.abs(gamepad1.right_stick_x) - 0.5));
+            double turn  =  Range.clip(gamepad1.right_stick_x, -0.5, 0.5);
             leftPower    = Range.clip(drive + turn, -1, 1) ;
             rightPower   = Range.clip(drive - turn, -1, 1) ;
 

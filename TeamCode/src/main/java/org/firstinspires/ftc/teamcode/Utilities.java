@@ -37,6 +37,12 @@ public class Utilities {
         return elapsedTime;
     }
 
+    public void wait_(float millis) {
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while (timer.milliseconds() < millis && opMode.opModeIsActive());
+    }
+
     public Side getSide() { return side; }
 
     public enum Side {

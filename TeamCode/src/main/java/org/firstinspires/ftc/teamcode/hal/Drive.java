@@ -48,6 +48,8 @@ public class Drive {
         if (!reversing) {
             shortTermMemory.push(new Command(Type.FORWARD, inches, this));
         }
+
+        utilities.wait_(500);
     }
 
     public void backward(float inches, double speed) {
@@ -60,8 +62,8 @@ public class Drive {
         setToPosition();
         left.setTargetPosition((int) Math.round(degrees * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS) * 2 / 15);
         right.setTargetPosition(-left.getTargetPosition());
-        left.setPower(0.3);
-        right.setPower(0.3);
+        left.setPower(0.3f);
+        right.setPower(0.3f);
         while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
 //            utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
 //            utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
@@ -76,6 +78,8 @@ public class Drive {
         if (!reversing) {
             shortTermMemory.push(new Command(Type.TURN_RIGHT, degrees, this));
         }
+
+        utilities.wait_(500);
     }
 
     public void turnLeft(float degrees) {
@@ -109,7 +113,7 @@ public class Drive {
 
         public void reverse() {
             if (type == Type.FORWARD) {
-                drive.forward(-value, 0.5f);
+                drive.forward(-value, 0.6f);
             } else if (type == Type.TURN_RIGHT) {
                 drive.turnRight(-value);
             }
