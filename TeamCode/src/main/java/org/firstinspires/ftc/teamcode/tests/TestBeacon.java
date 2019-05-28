@@ -34,9 +34,9 @@ public class TestBeacon extends LinearOpMode {
         while (beaconState == BeaconDeterminer.BeaconState.CONFUSED) {
             beaconState = beaconDeterminer.determine();
         }
-
-        telemetry.addData("Beacon State", beaconState.toString());
-        telemetry.update();
+//
+//        telemetry.addData("Beacon State", beaconState.toString());
+//        telemetry.update();
 
 
     }

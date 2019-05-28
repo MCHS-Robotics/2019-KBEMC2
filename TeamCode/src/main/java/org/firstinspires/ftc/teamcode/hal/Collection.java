@@ -19,8 +19,9 @@ public class Collection {
                     wait(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } finally {
+                    collection.setPower(0);
                 }
-                collection.setPower(0);
             }
         }).start();
     }
@@ -34,8 +35,9 @@ public class Collection {
                     wait(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } finally {
+                    collection.setPower(0);
                 }
-                collection.setPower(0);
             }
         }).start();
     }

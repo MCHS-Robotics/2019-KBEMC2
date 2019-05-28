@@ -18,7 +18,7 @@ public class Utilities {
         this.telemetry = telemetry;
         this.hardwareMap = hardwareMap;
         this.elapsedTime = elapsedTime;
-        this.side = Side.RED;
+        this.side = Side.BLUE;
     }
 
     public LinearOpMode getOpMode() {

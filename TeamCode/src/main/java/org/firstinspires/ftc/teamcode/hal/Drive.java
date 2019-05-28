@@ -49,7 +49,7 @@ public class Drive {
             shortTermMemory.push(new Command(Type.FORWARD, inches, this));
         }
 
-        utilities.wait_(500);
+        utilities.wait_(100);
     }
 
     public void backward(float inches, double speed) {
@@ -79,7 +79,7 @@ public class Drive {
             shortTermMemory.push(new Command(Type.TURN_RIGHT, degrees, this));
         }
 
-        utilities.wait_(500);
+        utilities.wait_(100);
     }
 
     public void turnLeft(float degrees) {

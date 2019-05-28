@@ -32,29 +32,30 @@ public class Auto extends LinearOpMode {
         telemetry.addData("Message", "Code has begun executing!");
         telemetry.update();
 
-        drive.forward(77,0.5);
+        drive.forward(77,0.4f);
         drive.turnLeft(90);
-        drive.forward(50,0.5);
-        drive.forward(5,0.3);
-        drive.backward(5,0.3);
+        drive.forward(57,1.0f);
         drive.turnRight(90);
-        drive.forward(50,0.5);
+        drive.forward(50,1.0f);
+        drive.turnRight(90);
 
-        /*if (beaconDeterminer.determine() == BeaconDeterminer.BeaconState.LEFT) {
-            drive.turnLeft(90);
-            drive.forward(22);
+        BeaconDeterminer.BeaconState beaconState = BeaconDeterminer.BeaconState.CONFUSED;
+        while (beaconState == BeaconDeterminer.BeaconState.CONFUSED && opModeIsActive()) {
+            beaconState = beaconDeterminer.determine();
+            drive.forward(1, 0.8f);
+        }
+        if (beaconState == BeaconDeterminer.BeaconState.LEFT) {
+            drive.turnLeft(180);
+            drive.forward(22, 1.0f);
             drive.turnRight(90);
-            drive.forward(8);
-        } else {
-            drive.turnRight(90);
-            drive.forward(22);
+        } else if (beaconState == BeaconDeterminer.BeaconState.RIGHT) {
+            drive.forward(25, 1.0f);
             drive.turnLeft(90);
-            drive.forward(8);
         }
 
-        lift.up();
-        collection.release(); commented bc no motor yet
-        lift.down();
-        */
+        drive.forward(6, 1.0f);
+//        lift.up();
+//        collection.release();
+//        lift.down();
     }
 }
