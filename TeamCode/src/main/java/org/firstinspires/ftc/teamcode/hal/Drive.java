@@ -10,6 +10,7 @@ import java.util.Stack;
 public class Drive {
     private DcMotor left;
     private DcMotor right;
+    private IMU imu;
     private Utilities utilities;
 
     private static final int ENCODERS_IN_ONE_ROTATION = 1120;
@@ -27,6 +28,7 @@ public class Drive {
         left.setDirection(DcMotorSimple.Direction.REVERSE);
         shortTermMemory = new Stack<>();
         reversing = false;
+        imu = new IMU(utilities);
     }
 
     public void forward(float inches, double speed) {
@@ -57,23 +59,45 @@ public class Drive {
     }
 
 
-    public void turnRight(float degrees) {
-        resetEncoders();
-        setToPosition();
-        left.setTargetPosition((int) Math.round(degrees * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS) * 2 / 15);
-        right.setTargetPosition(-left.getTargetPosition());
-        left.setPower(0.3f);
-        right.setPower(0.3f);
-        while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
-//            utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
-//            utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
-//            utilities.getTelemetry().addData("TargetL", left.getTargetPosition());
-//            utilities.getTelemetry().addData("TargetR", right.getTargetPosition());
-//            utilities.getTelemetry().update();
+    public void turnLeft(float degrees) {
+        if (degrees < 0) {
+            turnLeft(-degrees);
+            return;
         }
-        left.setPower(0);
+
+        float start = imu.getRotation();
+        float finalAng = start - degrees;
+
+        imu.resetElapsedTime();
+
+        right.setPower(0.4f);
+        left.setPower(-0.4f);
+
+        while (utilities.getOpMode().opModeIsActive() && imu.getRotation() > finalAng) {
+            imu.update();
+            utilities.getTelemetry().addData("Rotation", imu.getRotation());
+            utilities.getTelemetry().update();
+        }
+
+//        resetEncoders();
+//        setToPosition();
+//        left.setTargetPosition((int) Math.round(degrees * ENCODERS_IN_ONE_ROTATION / (2 * Math.PI) / WHEEL_RADIUS) * 2 / 15);
+//        right.setTargetPosition(-left.getTargetPosition());
+//        left.setPower(0.3f);
+//        right.setPower(0.3f);
+//        while (utilities.getOpMode().opModeIsActive() && left.isBusy() && right.isBusy()) {
+////            utilities.getTelemetry().addData("RotationL",left.getCurrentPosition());
+////            utilities.getTelemetry().addData("RotationR",right.getCurrentPosition());
+////            utilities.getTelemetry().addData("TargetL", left.getTargetPosition());
+////            utilities.getTelemetry().addData("TargetR", right.getTargetPosition());
+////            utilities.getTelemetry().update();
+//        }
+//        left.setPower(0);
+//        right.setPower(0);
+//        resetEncoders();
+
         right.setPower(0);
-        resetEncoders();
+        left.setPower(0);
 
         if (!reversing) {
             shortTermMemory.push(new Command(Type.TURN_RIGHT, degrees, this));
@@ -82,8 +106,33 @@ public class Drive {
         utilities.wait_(100);
     }
 
-    public void turnLeft(float degrees) {
-        turnRight(-degrees);
+    public void turnRight(float degrees) {
+        if (degrees < 0) {
+            turnRight(-degrees);
+            return;
+        }
+
+        float start = imu.getRotation();
+        float finalAng = start + degrees;
+
+        imu.resetElapsedTime();
+
+        right.setPower(-0.5f);
+        left.setPower(0.5f);
+        while (utilities.getOpMode().opModeIsActive() && imu.getRotation() < finalAng) {
+            imu.update();
+            utilities.getTelemetry().addData("Rotation", imu.getRotation());
+            utilities.getTelemetry().update();
+        }
+
+        right.setPower(0);
+        left.setPower(0);
+
+        if (!reversing) {
+            shortTermMemory.push(new Command(Type.TURN_RIGHT, degrees, this));
+        }
+
+        utilities.wait_(100);
     }
 
     public void reverse() {

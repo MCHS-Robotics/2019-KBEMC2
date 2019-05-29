@@ -54,8 +54,8 @@ public class Auto extends LinearOpMode {
         }
 
         drive.forward(6, 1.0f);
-//        lift.up();
+        lift.up();
 //        collection.release();
-//        lift.down();
+        lift.down();
     }
 }

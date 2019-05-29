@@ -20,16 +20,16 @@ public class TestDrive extends LinearOpMode {
         waitForStart();
         elapsedTime.reset();
 
-        for (int i = 0; i < 4 && opModeIsActive(); i++) {
-            drive.forward(18, 0.5f);
-            // drive.forward(9, 0.5f);
-            // drive.backward(9, 0.5f);
-            drive.backward(18, 0.5f);
-        }
-
-//        for (int i = 1; i <= 4; i++) {
-//            drive.turnLeft(45 * i);
-//            drive.turnRight(45 * i);
+//        for (int i = 0; i < 4 && opModeIsActive(); i++) {
+//            drive.forward(18, 0.5f);
+//            // drive.forward(9, 0.5f);
+//            // drive.backward(9, 0.5f);
+//            drive.backward(18, 0.5f);
 //        }
+
+        for (int i = 1; i <= 16; i += 2) {
+            drive.turnLeft(-45 * i);
+            drive.turnRight(-45 * (i + 1));
+        }
     }
 }
