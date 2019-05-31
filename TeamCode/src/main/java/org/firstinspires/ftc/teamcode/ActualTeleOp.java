@@ -73,6 +73,8 @@ public class ActualTeleOp extends LinearOpMode {
         DcMotor lift = hardwareMap.get(DcMotor.class, "lift");
         lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        DcMotor collection = hardwareMap.get(DcMotor.class, "collection");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -109,8 +111,16 @@ public class ActualTeleOp extends LinearOpMode {
             rightDrive.setPower(rightPower);
 
             if (gamepad1.a) {
-                lift.setPower(1);
+                collection.setPower(1);
             } else if (gamepad1.b) {
+                collection.setPower(-1);
+            } else {
+                collection.setPower(0);
+            }
+
+            if (gamepad1.dpad_up) {
+                lift.setPower(1);
+            } else if (gamepad1.dpad_down) {
                 lift.setPower(-1);
             } else {
                 lift.setPower(0);

@@ -51,29 +51,27 @@ import com.qualcomm.robotcore.util.Util;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 import org.firstinspires.ftc.teamcode.Utilities;
+import org.firstinspires.ftc.teamcode.hal.Collection;
 import org.firstinspires.ftc.teamcode.hal.Lift;
-@TeleOp(name="Test Lift", group="test")
+@TeleOp(name="Test Collection", group="test")
 //@Disabled
-public class TestLift extends LinearOpMode {
+public class TestCollection extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor lift = null;
-    //private DcMotor rightDrive = null;
 
 
     @Override
     public void runOpMode() {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, runtime);
-        Lift lift = new Lift(utilities);
+        Collection collection = new Collection(utilities);
 
         waitForStart();
 
-         lift.up();
-         utilities.wait_(12000);
-        lift.down();
-        utilities.wait_(12000);
-        lift.up();
-        utilities.wait_(12000);
+        collection.collect();
+        utilities.wait_(4000);
+        collection.release();
+        utilities.wait_(4000);
     }
 }

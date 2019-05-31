@@ -20,9 +20,9 @@ public class Tele extends LinearOpMode {
         Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
 
         ComputerVision computerVision = new ComputerVision(utilities);
-        Collection collection = null; // new Collection(utilities);
+        Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
-        Lift lift = null; // new Lift(utilities);
+        Lift lift = new Lift(utilities);
 
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
         BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
@@ -32,15 +32,26 @@ public class Tele extends LinearOpMode {
 
         boolean left = false;
 
-        for (int i = 0; i < 1 && opModeIsActive(); i++) {
+        for (int i = 0; i < 2 && opModeIsActive(); i++) {
             // path
-            drive.turnRight(180);
+            drive.forward(2, 0.1f);
+            drive.reset();
+
+            drive.backward(14, 0.6f);
+            lift.down();
+            drive.turnRight(90);
+            if (left) {
+                drive.forward(3, 0.6f, true);
+            } else {
+                drive.backward(3, 0.6f, true);
+            }
+            drive.turnRight(90);
             if (left) {
                 drive.turnRight(45);
             } else {
                 drive.turnLeft(45);
             }
-            drive.forward(36, 0.6f);
+            drive.forward(32, 0.6f);
             if (left) {
                 drive.turnLeft(45);
             } else {
@@ -54,14 +65,18 @@ public class Tele extends LinearOpMode {
                     break;
                 }
                 drive.forward(58 + (ii >= 2 ? 8 : 0), 0.6f);
+                if (bc.collect()) {
+                    break;
+                }
                 if (ii < 3) {
                     drive.turnLeft(90);
                 }
             }
 
+            lift.up();
             drive.reverse();
-            // lift.up();
-            // collection.release();
+            collection.release();
+            utilities.wait_(1000);
         }
     }
 }

@@ -29,24 +29,20 @@ public class BallCollector {
         utilities.getTelemetry().addData("Theta", angle);
         utilities.getTelemetry().update();
 
-        if (Float.isNaN(angle) || true) {
+        if (Float.isNaN(angle)) {
             return false;
         }
 
-        drive.turnRight(angle);
-
-        while (computerVision.getBottomYFraction() > 0.4f && utilities.getOpMode().opModeIsActive()) {
-            drive.forward(2, 0.5f);
-        }
+        drive.turnRight(angle * 1.23f);
 
         if (angle < 10) {
             drive.turnLeft(90);
-            drive.forward(7f, 0.5f);
+            drive.forward(6f, 0.5f);
             drive.turnRight(90);
         }
 
-        // collection.collect();
-        drive.forward(10f, 0.3f);
+        collection.collect();
+        drive.forward(45f, 0.6f);
         return utilities.getOpMode().opModeIsActive();
     }
 }

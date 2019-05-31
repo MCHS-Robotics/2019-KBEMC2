@@ -21,7 +21,7 @@ public class Auto extends LinearOpMode {
 
 
         ComputerVision computerVision = new ComputerVision(utilities);
-        //Collection collection = new Collection(utilities);
+        Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
         Lift lift = new Lift(utilities);
         BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
@@ -55,7 +55,6 @@ public class Auto extends LinearOpMode {
 
         drive.forward(6, 1.0f);
         lift.up();
-//        collection.release();
-        lift.down();
+        collection.release();
     }
 }

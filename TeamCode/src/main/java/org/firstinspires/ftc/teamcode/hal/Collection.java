@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hal;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Utilities;
 
@@ -14,14 +15,13 @@ public class Collection {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                ElapsedTime elapsedTime = new ElapsedTime();
+                elapsedTime.reset();
+
                 collection.setPower(1);
-                try {
-                    wait(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    collection.setPower(0);
-                }
+                while (elapsedTime.seconds() < 8);
+                collection.setPower(0);
+
             }
         }).start();
     }
@@ -30,14 +30,13 @@ public class Collection {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                ElapsedTime elapsedTime = new ElapsedTime();
+                elapsedTime.reset();
+
                 collection.setPower(-1);
-                try {
-                    wait(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    collection.setPower(0);
-                }
+                while (elapsedTime.seconds() < 2);
+                collection.setPower(0);
+
             }
         }).start();
     }

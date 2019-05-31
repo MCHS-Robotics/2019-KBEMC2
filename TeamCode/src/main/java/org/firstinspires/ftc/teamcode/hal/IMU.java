@@ -33,6 +33,7 @@ public class IMU {
 
     public void resetElapsedTime() {
         elapsedTime.reset();
+        rotation = 0;
     }
 
     public float getRotation() {

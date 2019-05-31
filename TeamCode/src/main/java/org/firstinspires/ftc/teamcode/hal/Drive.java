@@ -58,20 +58,36 @@ public class Drive {
         forward(-inches,speed);
     }
 
+    public void forward(float inches, double speed, boolean remember) {
+        this.reversing = remember;
+        forward(inches, speed);
+        this.reversing = !remember;
+    }
+
+    public void backward(float inches, double speed, boolean remember) {
+        this.reversing = remember;
+        backward(inches, speed);
+        this.reversing = !remember;
+    }
+
 
     public void turnLeft(float degrees) {
         if (degrees < 0) {
-            turnLeft(-degrees);
+            turnRight(-degrees);
             return;
         }
 
-        float start = imu.getRotation();
+        degrees *= 0.965f;
+
+        setToNormal();
+
+        float start = 0;
         float finalAng = start - degrees;
 
         imu.resetElapsedTime();
 
-        right.setPower(0.4f);
-        left.setPower(-0.4f);
+        right.setPower(0.3f);
+        left.setPower(-0.3f);
 
         while (utilities.getOpMode().opModeIsActive() && imu.getRotation() > finalAng) {
             imu.update();
@@ -100,7 +116,7 @@ public class Drive {
         left.setPower(0);
 
         if (!reversing) {
-            shortTermMemory.push(new Command(Type.TURN_RIGHT, degrees, this));
+            shortTermMemory.push(new Command(Type.TURN_RIGHT, -degrees, this));
         }
 
         utilities.wait_(100);
@@ -108,17 +124,21 @@ public class Drive {
 
     public void turnRight(float degrees) {
         if (degrees < 0) {
-            turnRight(-degrees);
+            turnLeft(-degrees);
             return;
         }
 
-        float start = imu.getRotation();
+        degrees *= 0.965f;
+
+        setToNormal();
+
+        float start = 0;
         float finalAng = start + degrees;
 
         imu.resetElapsedTime();
 
-        right.setPower(-0.5f);
-        left.setPower(0.5f);
+        right.setPower(-0.3f);
+        left.setPower(0.3f);
         while (utilities.getOpMode().opModeIsActive() && imu.getRotation() < finalAng) {
             imu.update();
             utilities.getTelemetry().addData("Rotation", imu.getRotation());
@@ -181,6 +201,11 @@ public class Drive {
     private void setToPosition() {
         left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    private void setToNormal() {
+        left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     private void resetEncoders() {
