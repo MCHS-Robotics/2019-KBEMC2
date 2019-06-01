@@ -64,7 +64,7 @@ public class TestLift extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, runtime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, Utilities.Side.BLUE, runtime);
         Lift lift = new Lift(utilities);
 
         waitForStart();

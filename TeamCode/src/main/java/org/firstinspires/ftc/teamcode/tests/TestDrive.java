@@ -13,7 +13,7 @@ public class TestDrive extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, Utilities.Side.BLUE, elapsedTime);
         Drive drive = new Drive(utilities);
 
 

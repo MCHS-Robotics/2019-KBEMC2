@@ -17,7 +17,7 @@ public class TestComputerVision extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, Utilities.Side.BLUE, elapsedTime);
 
 
         ComputerVision computerVision = new ComputerVision(utilities);
@@ -32,7 +32,7 @@ public class TestComputerVision extends LinearOpMode {
 
         while (opModeIsActive()) {
              drive.forward(5, 0.3f);
-            bc.collect();
+             bc.collect(false);
              drive.reverse();
         }
     }

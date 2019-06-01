@@ -33,8 +33,8 @@ public abstract class Auto extends LinearOpMode {
         telemetry.addData("Message", "Code has begun executing!");
         telemetry.update();
 
-        drive.forward(77,0.4f);
         lift.up();
+        drive.forward(77,0.4f);
         drive.turnLeft(90);
         drive.forward(57,1.0f);
         drive.turnRight(90);

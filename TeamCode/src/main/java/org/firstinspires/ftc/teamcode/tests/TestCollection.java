@@ -64,7 +64,7 @@ public class TestCollection extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, runtime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, Utilities.Side.RED, runtime);
         Collection collection = new Collection(utilities);
 
         waitForStart();
