@@ -7,8 +7,13 @@ import org.firstinspires.ftc.teamcode.Utilities;
 
 public class Collection {
     private final DcMotor collection;
+    private final Utilities utilities;
+
     public Collection(Utilities utilities) {
         collection = utilities.getHardwareMap().get(DcMotor.class, "collection");
+        collection.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        this.utilities = utilities;
     }
 
     public void collect() {
@@ -18,8 +23,8 @@ public class Collection {
                 ElapsedTime elapsedTime = new ElapsedTime();
                 elapsedTime.reset();
 
-                collection.setPower(1);
-                while (elapsedTime.seconds() < 8);
+                collection.setPower(1.0f);
+                while (elapsedTime.seconds() < 8 && utilities.getOpMode().opModeIsActive());
                 collection.setPower(0);
 
             }
@@ -33,8 +38,8 @@ public class Collection {
                 ElapsedTime elapsedTime = new ElapsedTime();
                 elapsedTime.reset();
 
-                collection.setPower(-1);
-                while (elapsedTime.seconds() < 2);
+                collection.setPower(-0.5f);
+                while (elapsedTime.seconds() < 2 && utilities.getOpMode().opModeIsActive());
                 collection.setPower(0);
 
             }

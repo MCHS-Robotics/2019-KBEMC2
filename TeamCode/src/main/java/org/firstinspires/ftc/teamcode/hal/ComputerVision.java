@@ -39,7 +39,7 @@ public class ComputerVision {
         for (Recognition r : recognitions) {
             if (closest == null) { closest = r; }
 
-            if (r.getBottom() < closest.getBottom()) {
+            if (r.estimateAngleToObject(AngleUnit.DEGREES) > closest.estimateAngleToObject(AngleUnit.DEGREES)) {
                 closest = r;
             }
         }

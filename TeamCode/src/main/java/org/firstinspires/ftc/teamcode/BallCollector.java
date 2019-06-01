@@ -20,7 +20,7 @@ public class BallCollector {
 
     public boolean collect(boolean canCrashIntoCenterPiece) {
         float angle = computerVision.getHorizontalAngle();
-        for (int i = 0; i < 10000 && Float.isNaN(angle) && utilities.getOpMode().opModeIsActive(); i++) {
+        for (int i = 0; i < 10000 && utilities.getOpMode().opModeIsActive(); i++) {
             utilities.getTelemetry().addData("Theta", angle);
             utilities.getTelemetry().update();
             angle = computerVision.getHorizontalAngle();
@@ -35,18 +35,16 @@ public class BallCollector {
 
         drive.turnRight(angle * 1.23f);
 
-        if (angle < 10) {
-            drive.turnLeft(90);
-            drive.forward(6f, 0.5f);
-            drive.turnRight(90);
-        }
+        drive.turnLeft(90);
+        drive.forward(6f, 0.5f);
+        drive.turnRight(90);
 
         if (canCrashIntoCenterPiece && ((drive.getRotation() > -45 && drive.getRotation() < 45) || (drive.getRotation() < -135 && drive.getRotation() > -225))) {
             drive.reverse(4);
             return false;
         }
         collection.collect();
-        drive.forward(40f, 0.6f);
+        drive.forward(50f, 0.6f);
         return utilities.getOpMode().opModeIsActive();
     }
 }

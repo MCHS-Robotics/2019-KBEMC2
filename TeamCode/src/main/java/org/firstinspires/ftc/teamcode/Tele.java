@@ -27,13 +27,14 @@ public abstract class Tele extends LinearOpMode {
         Lift lift = new Lift(utilities);
 
         BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
+        BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
 
         waitForStart();
         elapsedTime.reset();
 
         boolean left = getBeaconState();
 
-        for (;opModeIsActive();) {
+        for (int i = 0; opModeIsActive(); i++) {
             // path
             drive.forward(2, 0.1f);
             drive.reset();
@@ -41,11 +42,6 @@ public abstract class Tele extends LinearOpMode {
             drive.backward(14, 0.6f);
             lift.down();
             drive.turnRight(90);
-            if (left) {
-                drive.forward(3, 0.6f, true);
-            } else {
-                drive.backward(3, 0.6f, true);
-            }
             drive.turnRight(90);
             if (left) {
                 drive.turnRight(45);
@@ -76,6 +72,28 @@ public abstract class Tele extends LinearOpMode {
 
             lift.up();
             drive.reverse();
+
+            drive.turnRight(90);
+
+            BeaconDeterminer.BeaconState beaconState = BeaconDeterminer.BeaconState.CONFUSED;
+            while (beaconState == BeaconDeterminer.BeaconState.CONFUSED && opModeIsActive()) {
+                beaconState = beaconDeterminer.determine();
+                if (left) {
+                    drive.backward(1.5f, 1.0f);
+                } else {
+                    drive.forward(1.5f, 1.0f);
+                }
+            }
+
+            if (left) {
+                drive.forward(20, 1.0f);
+            } else {
+                drive.backward(20, 1.0f);
+            }
+
+            drive.turnLeft(90);
+            drive.forward(4, 0.2f);
+
             collection.release();
             utilities.wait_(1000);
         }

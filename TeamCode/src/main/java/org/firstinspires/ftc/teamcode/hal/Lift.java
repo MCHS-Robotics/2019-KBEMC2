@@ -42,6 +42,25 @@ public class Lift {
         }).start();
     }
 
+    public void up(final float inches) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                lift.setTargetPosition((int) (1778 * inches));
+                lift.setPower(0.8f);
+
+                while (utilities.getOpMode().opModeIsActive() && lift.isBusy());
+
+                lift.setPower(0);
+
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            }
+        }).start();
+    }
+
     public void down() {
         new Thread(new Runnable() {
             @Override
@@ -50,6 +69,25 @@ public class Lift {
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
                 lift.setTargetPosition((int) (-1778 * LEAD_SCREW_TRAVEL_LENGTH));
+                lift.setPower(0.8f);
+
+                while (utilities.getOpMode().opModeIsActive() && lift.isBusy());
+
+                lift.setPower(0);
+
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            }
+        }).start();
+    }
+
+    public void down(final float inches) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                lift.setTargetPosition((int) (-1778 * inches));
                 lift.setPower(0.8f);
 
                 while (utilities.getOpMode().opModeIsActive() && lift.isBusy());
