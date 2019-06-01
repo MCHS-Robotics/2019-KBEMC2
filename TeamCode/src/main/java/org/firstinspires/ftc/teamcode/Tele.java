@@ -9,30 +9,31 @@ import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
 import org.firstinspires.ftc.teamcode.hal.Lift;
 
-@TeleOp(name="KBEMC2 TeleOp", group="KBEMC2")
-public class Tele extends LinearOpMode {
+public abstract class Tele extends LinearOpMode {
 
     private ElapsedTime elapsedTime = new ElapsedTime();
+
+    protected abstract Utilities.Side getSide();
+    protected abstract boolean getBeaconState();
 
     @Override
     public void runOpMode() {
 
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, getSide(), elapsedTime);
 
         ComputerVision computerVision = new ComputerVision(utilities);
         Collection collection = new Collection(utilities);
         Drive drive = new Drive(utilities);
         Lift lift = new Lift(utilities);
 
-        BeaconDeterminer beaconDeterminer = new BeaconDeterminer(utilities);
         BallCollector bc = new BallCollector(utilities, computerVision, drive, collection);
 
         waitForStart();
         elapsedTime.reset();
 
-        boolean left = false;
+        boolean left = getBeaconState();
 
-        for (int i = 0; i < 2 && opModeIsActive(); i++) {
+        for (;opModeIsActive();) {
             // path
             drive.forward(2, 0.1f);
             drive.reset();
@@ -61,11 +62,11 @@ public class Tele extends LinearOpMode {
             drive.turnRight(45);
 
             for (int ii = 0; ii < 4 && opModeIsActive(); ii++) {
-                if (bc.collect()) {
+                if (bc.collect(ii % 2 == 0)) {
                     break;
                 }
                 drive.forward(58 + (ii >= 2 ? 8 : 0), 0.6f);
-                if (bc.collect()) {
+                if (bc.collect(false)) {
                     break;
                 }
                 if (ii < 3) {

@@ -10,14 +10,15 @@ import org.firstinspires.ftc.teamcode.hal.ComputerVision;
 import org.firstinspires.ftc.teamcode.hal.Drive;
 import org.firstinspires.ftc.teamcode.hal.Lift;
 
-@Autonomous(name="KBEMC2 Auto", group="KBEMC2")
-public class Auto extends LinearOpMode {
+public abstract class Auto extends LinearOpMode {
 
     private ElapsedTime elapsedTime = new ElapsedTime();
 
+    protected abstract Utilities.Side getSide();
+
     @Override
     public void runOpMode() {
-        Utilities utilities = new Utilities(this, telemetry, hardwareMap, elapsedTime);
+        Utilities utilities = new Utilities(this, telemetry, hardwareMap, getSide(), elapsedTime);
 
 
         ComputerVision computerVision = new ComputerVision(utilities);
@@ -33,6 +34,7 @@ public class Auto extends LinearOpMode {
         telemetry.update();
 
         drive.forward(77,0.4f);
+        lift.up();
         drive.turnLeft(90);
         drive.forward(57,1.0f);
         drive.turnRight(90);
@@ -54,7 +56,6 @@ public class Auto extends LinearOpMode {
         }
 
         drive.forward(6, 1.0f);
-        lift.up();
         collection.release();
     }
 }

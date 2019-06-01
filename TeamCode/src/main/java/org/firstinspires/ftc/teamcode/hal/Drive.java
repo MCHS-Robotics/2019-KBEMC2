@@ -81,7 +81,7 @@ public class Drive {
 
         setToNormal();
 
-        float start = 0;
+        float start = imu.getRotation();
         float finalAng = start - degrees;
 
         imu.resetElapsedTime();
@@ -132,7 +132,7 @@ public class Drive {
 
         setToNormal();
 
-        float start = 0;
+        float start = imu.getRotation();
         float finalAng = start + degrees;
 
         imu.resetElapsedTime();
@@ -163,10 +163,22 @@ public class Drive {
         reversing = false;
     }
 
+    public void reverse(int amount) {
+        reversing = true;
+        for (int i = 0; i < amount; i++) {
+            shortTermMemory.pop().reverse();
+        }
+        reversing = false;
+    }
+
     public void reset() {
         while (!shortTermMemory.empty()) {
             shortTermMemory.pop();
         }
+    }
+
+    public float getRotation() {
+        return imu.getRotation();
     }
 
     private class Command {

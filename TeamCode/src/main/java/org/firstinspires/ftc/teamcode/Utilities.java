@@ -13,12 +13,12 @@ public class Utilities {
     private ElapsedTime elapsedTime;
     private Side side;
 
-    public Utilities(LinearOpMode opMode, Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime elapsedTime) {
+    public Utilities(LinearOpMode opMode, Telemetry telemetry, HardwareMap hardwareMap, Side side, ElapsedTime elapsedTime) {
         this.opMode = opMode;
         this.telemetry = telemetry;
         this.hardwareMap = hardwareMap;
         this.elapsedTime = elapsedTime;
-        this.side = Side.BLUE;
+        this.side = side;
     }
 
     public LinearOpMode getOpMode() {
