@@ -47,16 +47,23 @@ public class ActualTeleOp extends LinearOpMode {
             // Setup a variable for each drive wheel to save power level for telemetry
             double leftPower;
             double rightPower;
-
+            double drive;
+            double turn;
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = (gamepad1.left_stick_y >= 0 ? 1 : -1) * (Math.abs(gamepad1.left_stick_y) < 0.5 ? Math.abs(gamepad1.left_stick_y) / 2 : (1.5 * Math.abs(gamepad1.left_stick_y) - 0.5));
-            double turn  =  Range.clip(gamepad1.right_stick_x, -0.5, 0.5);
-            leftPower    = Range.clip(drive + turn, -1, 1) ;
-            rightPower   = Range.clip(drive - turn, -1, 1) ;
+            if(gamepad1.left_stick_y<0)
+                drive = -(Math.pow(gamepad1.left_stick_y,2));
+            else
+                drive = Math.pow(gamepad1.left_stick_y,2);
+            if(gamepad1.right_stick_x<0)
+                turn = -(Math.pow(gamepad1.right_stick_x,2));
+            else
+                turn = Math.pow(gamepad1.right_stick_x,2);
+            leftPower    = Range.clip(drive - turn, -1, 1) ;
+            rightPower   = Range.clip(drive + turn, -1, 1) ;
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -66,18 +73,11 @@ public class ActualTeleOp extends LinearOpMode {
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
+            collection.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
 
-            if (gamepad1.a) {
-                collection.setPower(1);
-            } else if (gamepad1.b) {
-                collection.setPower(-1);
-            } else {
-                collection.setPower(0);
-            }
-
-            if (gamepad1.dpad_up) {
+            if (gamepad1.right_bumper) {
                 lift.setPower(1);
-            } else if (gamepad1.dpad_down) {
+            } else if (gamepad1.left_bumper) {
                 lift.setPower(-1);
             } else {
                 lift.setPower(0);
